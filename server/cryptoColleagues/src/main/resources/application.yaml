@@ -7,10 +7,10 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
 cryptocolleagues:
   app:
-    jwtCookieName: cryptoColleagues
-    jwtSecret: cryptoColleaguesSecretKey
+    jwtCookieName: cryptocolleagues
+    jwtSecret: cryptoKey
     jwtExpirationMs: 86400000

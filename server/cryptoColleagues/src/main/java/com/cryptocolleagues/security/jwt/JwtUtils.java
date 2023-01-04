@@ -1,19 +1,17 @@
 package com.cryptocolleagues.security.jwt;
 
-import java.util.Date;
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import jakarta.servlet.http.Cookie;
+import com.cryptocolleagues.security.services.UserDetailsImpl;
+import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
+import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.util.WebUtils;
-
-import com.cryptocolleagues.security.services.UserDetailsImpl;
-import io.jsonwebtoken.*;
 
 @Component
 public class JwtUtils {
