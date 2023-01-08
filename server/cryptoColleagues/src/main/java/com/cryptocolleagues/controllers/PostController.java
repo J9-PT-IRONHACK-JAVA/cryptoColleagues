@@ -3,6 +3,8 @@ package com.cryptocolleagues.controllers;
 import com.cryptocolleagues.dtos.PostRequest;
 import com.cryptocolleagues.services.PostService;
 import com.cryptocolleagues.utils.ErrorResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ public class PostController {
     @PostMapping("/post")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create Post", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
         try {
             var createdPost= postService.create(postRequest);
@@ -47,6 +50,7 @@ public class PostController {
     @RequestMapping(path="/post/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete Post", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<?> deletePost(@PathVariable("id") int id) {
         try {
             postService.deleteById(id);
@@ -61,6 +65,7 @@ public class PostController {
     @PutMapping("/post/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Update Post", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<?>  updatePost(@PathVariable("id") Long id, @RequestBody PostRequest postRequest) {
         try {
             var updatedPost =  postService.updatePost(id, postRequest);
