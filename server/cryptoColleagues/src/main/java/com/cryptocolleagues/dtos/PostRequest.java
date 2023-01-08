@@ -1,10 +1,11 @@
 package com.cryptocolleagues.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
-public class PostDto {
+public class PostRequest {
     private String title;
     private String description;
     private String content;
