@@ -1,10 +1,13 @@
 package com.cryptocolleagues.services;
 
 import com.cryptocolleagues.dtos.PostRequest;
+import com.cryptocolleagues.dtos.PostResponse;
 import com.cryptocolleagues.models.Post;
 import com.cryptocolleagues.repositories.PostRepository;
 import com.cryptocolleagues.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,15 @@ import org.springframework.stereotype.Service;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
+
+    PropertyMap<Post, PostResponse> postMapping = new PropertyMap<Post, PostResponse>() {
+        protected void configure() {
+            map().setUserName(source.getAuthor().getUsername());
+            map().setEmail(source.getAuthor().getEmail());
+        }
+    };
 
     public Post saveOrUpdate(Post post) {
         return postRepository.save(post);
@@ -27,19 +39,28 @@ public class PostService {
         return saveOrUpdate(postToSave);
     }
 
-    public Post getById(Long id) {
-        return postRepository.getById(id);
+    public PostResponse getById(Long id) {
+        var post = postRepository.getById(id);
+        modelMapper.addMappings(postMapping);
+        var postResponse = modelMapper.map(post, PostResponse.class);
+        return postResponse;
     }
 
     public void deleteById(int id) {
         postRepository.deleteById(id);
     }
 
-    public Post updatePost(Long id, PostRequest post) {
-        var postToUpdate = getById(id);
-        postToUpdate.setTitle(post.getTitle());
-        postToUpdate.setContent(post.getContent());
-        postToUpdate.setDescription(post.getDescription());
-        return saveOrUpdate(postToUpdate);
+
+    public Post updatePost(Long id, PostRequest postRequest) {
+        var postResponse = getById(id);
+        postResponse.setTitle(postRequest.getTitle());
+        postResponse.setContent(postRequest.getContent());
+        postResponse.setDescription(postRequest.getDescription());
+        Post post = new Post();
+        post.setTitle(postResponse.getTitle());
+        post.setContent(postResponse.getContent());
+        post.setDescription(postResponse.getDescription());
+        return saveOrUpdate(post);
     }
 }
+
