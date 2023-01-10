@@ -1,6 +1,5 @@
 package com.cryptocolleagues.config;
 
-
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +14,4 @@ public class MyFeignConfig {
         HttpMessageConverter<?> additional = new MappingJackson2HttpMessageConverter();
         return new HttpMessageConverters(additional);
     }
-
-
 }
