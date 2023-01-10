@@ -14,6 +14,8 @@ import com.cryptocolleagues.repositories.RoleRepository;
 import com.cryptocolleagues.repositories.UserRepository;
 import com.cryptocolleagues.security.jwt.JwtUtils;
 import com.cryptocolleagues.security.services.UserDetailsImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,7 @@ import com.cryptocolleagues.models.User;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Auth")
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -56,6 +59,7 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
+    @Operation(summary = "SignIn user")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager
@@ -79,6 +83,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
+    @Operation(summary = "Register user")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
@@ -124,6 +129,7 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
+    @Operation(summary = "SignOut user")
     public ResponseEntity<?> logoutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())

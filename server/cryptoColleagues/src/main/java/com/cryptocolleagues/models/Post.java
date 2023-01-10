@@ -3,9 +3,6 @@ package com.cryptocolleagues.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Optional;
-import java.util.Set;
-
 @Entity
 @Table(name = "posts")
 @Data

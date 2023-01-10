@@ -5,6 +5,7 @@ import com.cryptocolleagues.services.PostService;
 import com.cryptocolleagues.utils.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
+@Tag(name = "Post")
 public class PostController {
     private final PostService postService;
 
     @RequestMapping(path="/post/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "get selected Post")
     public ResponseEntity<?> getPost(@PathVariable("id") int id) {
         var post = postService.getById((long) id);
 

@@ -1,6 +1,5 @@
 package com.cryptocolleagues.services;
 
-
 import com.cryptocolleagues.enums.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +15,6 @@ public class DataGeneratorService {
 
     final RoleService roleServiceService;
 
-
     @Bean
     public void loadFakeData(){
         try {
@@ -28,8 +26,8 @@ public class DataGeneratorService {
 
     private void loadRolesData() throws Exception {
         var roleAdmin = roleServiceService.create(RoleEnum.ROLE_ADMIN);
-        System.out.println(roleAdmin);
         var roleUser = roleServiceService.create(RoleEnum.ROLE_USER);
+        System.out.println(roleAdmin);
         System.out.println(roleAdmin);
     }
 }
