@@ -2,11 +2,12 @@ package com.cryptocolleagues.dtos;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class NewsResponse {
-    List<News> data;
+    List<News> data = new ArrayList<>();
 
 }
 
