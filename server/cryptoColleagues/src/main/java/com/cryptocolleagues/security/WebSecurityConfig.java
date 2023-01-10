@@ -69,6 +69,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/posts/**").permitAll()
                 .requestMatchers("/api/portfolios/**").permitAll()
                 .requestMatchers("/api/cryptocurrencies/**").permitAll()
+                .requestMatchers("/api/news/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
@@ -77,5 +78,4 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
 }
