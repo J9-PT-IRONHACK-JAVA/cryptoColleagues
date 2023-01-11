@@ -1,11 +1,13 @@
 package com.cryptocolleagues.controllers;
 
 import com.cryptocolleagues.dtos.PostRequest;
+import com.cryptocolleagues.models.Post;
 import com.cryptocolleagues.services.PostService;
 import com.cryptocolleagues.utils.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,22 +41,23 @@ public class PostController {
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create Post", security = @SecurityRequirement(name = "bearerAuth"))
-    public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
-        try {
-            var createdPost= postService.create(postRequest);
+    public Post createPost(@RequestBody PostRequest postRequest) throws Exception {
+        return postService.create(postRequest);
+      /*  try {
+            var createdPost = postService.create(postRequest);
             return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
         } catch(Exception e) {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("Post cannot be created");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
-        }
+        }*/
     }
 
     @RequestMapping(path="/post/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete Post", security = @SecurityRequirement(name = "bearerAuth"))
-    public ResponseEntity<?> deletePost(@PathVariable("id") int id) {
+    public ResponseEntity<?> deletePost(@PathVariable("id") Long id) {
         try {
             postService.deleteById(id);
             return new ResponseEntity<>(null, HttpStatus.OK);
@@ -69,7 +72,7 @@ public class PostController {
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Update Post", security = @SecurityRequirement(name = "bearerAuth"))
-    public ResponseEntity<?>  updatePost(@PathVariable("id") Long id, @RequestBody PostRequest postRequest) {
+    public ResponseEntity<?>  updatePost(@PathVariable("id") Long id, @RequestBody @Valid PostRequest postRequest) {
         try {
             var updatedPost =  postService.updatePost(id, postRequest);
             return new ResponseEntity<>(updatedPost, HttpStatus.OK);

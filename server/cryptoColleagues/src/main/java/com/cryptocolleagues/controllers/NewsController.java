@@ -1,6 +1,7 @@
 package com.cryptocolleagues.controllers;
 
 import com.cryptocolleagues.proxy.NewsProxy;
+import com.cryptocolleagues.services.NewsService;
 import com.cryptocolleagues.utils.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,13 +18,16 @@ import org.springframework.web.bind.annotation.*;
 public class NewsController {
     private final NewsProxy newsProxy;
 
+    private final NewsService newsService;
+
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "get all news")
     public ResponseEntity<?> getAllNews(){
         try {
-            var newsResponse = newsProxy.getNews();
+           // var newsResponse = newsProxy.getNews();
+            var newsResponse = newsService.getNewsProxy();
             return new ResponseEntity<>(newsResponse, HttpStatus.OK);
         } catch(Exception e) {
             ErrorResponse errorResponse = new ErrorResponse();
