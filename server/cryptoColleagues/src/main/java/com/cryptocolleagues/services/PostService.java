@@ -11,6 +11,7 @@ import org.modelmapper.PropertyMap;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -20,12 +21,13 @@ public class PostService {
 
     private final ModelMapper modelMapper = new ModelMapper();
 
-    PropertyMap<Post, PostResponse> postMapping = new PropertyMap<Post, PostResponse>() {
+    PropertyMap<Post, PostResponse> postMapping = new PropertyMap<>() {
         protected void configure() {
             map().setUserName(source.getAuthor().getUsername());
             map().setEmail(source.getAuthor().getEmail());
         }
     };
+
 
     public Post saveOrUpdate(Post post) {
         return postRepository.save(post);
@@ -39,28 +41,37 @@ public class PostService {
         return saveOrUpdate(postToSave);
     }
 
-    public PostResponse getById(Long id) {
+   /* public PostResponse getById(Long id) {
         var post = postRepository.getById(id);
         modelMapper.addMappings(postMapping);
         var postResponse = modelMapper.map(post, PostResponse.class);
         return postResponse;
+    }*/
+
+    public PostResponse getById(Long id) {
+        var post = postRepository.findById(id).orElseThrow(()-> new NotFoundException("Post not found"));
+        modelMapper.addMappings(postMapping);
+        return modelMapper.map(post, PostResponse.class);
     }
 
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         postRepository.deleteById(id);
     }
 
 
     public Post updatePost(Long id, PostRequest postRequest) {
-        var postResponse = getById(id);
-        postResponse.setTitle(postRequest.getTitle());
-        postResponse.setContent(postRequest.getContent());
-        postResponse.setDescription(postRequest.getDescription());
-        Post post = new Post();
-        post.setTitle(postResponse.getTitle());
-        post.setContent(postResponse.getContent());
-        post.setDescription(postResponse.getDescription());
-        return saveOrUpdate(post);
-    }
+            var postResponse = postRepository.findById(id);
+            if (postResponse.isPresent()){
+                postResponse.get().setTitle(postRequest.getTitle());
+                postResponse.get().setContent(postRequest.getContent());
+                postResponse.get().setDescription(postRequest.getDescription());
+                return saveOrUpdate(postResponse.get());
+            }
+            Post post = new Post();
+            post.setTitle(postRequest.getTitle());
+            post.setContent(postRequest.getContent());
+            post.setDescription(postRequest.getDescription());
+            return saveOrUpdate(post);
+        }
 }
 
