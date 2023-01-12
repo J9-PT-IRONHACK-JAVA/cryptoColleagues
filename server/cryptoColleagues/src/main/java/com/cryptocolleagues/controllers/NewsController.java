@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "News")
 public class NewsController {
-    private final NewsProxy newsProxy;
-
     private final NewsService newsService;
 
     @GetMapping("/all")
@@ -26,8 +24,7 @@ public class NewsController {
     @Operation(summary = "get all news")
     public ResponseEntity<?> getAllNews(){
         try {
-           // var newsResponse = newsProxy.getNews();
-            var newsResponse = newsService.getNewsProxy();
+            var newsResponse = newsService.getAllNews();
             return new ResponseEntity<>(newsResponse, HttpStatus.OK);
         } catch(Exception e) {
             ErrorResponse errorResponse = new ErrorResponse();

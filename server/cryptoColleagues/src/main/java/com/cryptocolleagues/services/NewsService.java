@@ -11,11 +11,9 @@ public class NewsService {
 
     private final NewsProxy newsProxy;
 
-    public NewsProxy getNewsProxy() {
-        return newsProxy;
-    }
 
     public NewsResponse getAllNews(){
-        return getNewsProxy().getNews();
+        return newsProxy.getNews();
     }
+
 }
