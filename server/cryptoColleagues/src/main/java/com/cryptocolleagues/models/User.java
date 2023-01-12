@@ -1,6 +1,5 @@
 package com.cryptocolleagues.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.util.*;

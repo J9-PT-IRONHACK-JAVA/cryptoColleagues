@@ -1,13 +1,11 @@
 package com.cryptocolleagues.dtos;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
 public class SignupRequest {
     @NotBlank
     @Size(min = 3, max = 20)
@@ -23,4 +21,14 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
+
+    public SignupRequest() {
+    }
+
+    public SignupRequest(String username, String email, Set<String> role, String password) {
+        this.username = username;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+    }
 }

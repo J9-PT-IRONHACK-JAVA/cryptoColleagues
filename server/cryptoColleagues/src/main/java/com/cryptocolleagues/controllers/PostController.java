@@ -42,14 +42,6 @@ public class PostController {
     @Operation(summary = "Create Post", security = @SecurityRequirement(name = "bearerAuth"))
     public Post createPost(@RequestBody @Valid PostRequest postRequest) throws Exception {
         return postService.create(postRequest);
-      /*  try {
-            var createdPost = postService.create(postRequest);
-            return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
-        } catch(Exception e) {
-            ErrorResponse errorResponse = new ErrorResponse();
-            errorResponse.setMessage("Post cannot be created");
-            return new ResponseEntity<>(errorResponse, HttpStatus.OK);
-        }*/
     }
 
     @RequestMapping(path="/post/{id}", method = RequestMethod.DELETE)
