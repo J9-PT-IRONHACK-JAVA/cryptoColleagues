@@ -34,24 +34,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableFeignClients
 @Import({MyFeignConfig.class, WebSecurityConfig.class, FeignClient.class, FeignClientFactory.class, FeignClientProperties.class,})
 class NewsControllerTest {
-
- /*   @Autowired
-    MockMvc mockMvc;
-
-
-    @MockBean
-    NewsService newsService;
-
-    @MockBean
-    NewsProxy newsProxy;
+   /*
+   @Autowired MockMvc mockMvc;
+   @MockBean NewsService newsService;
+   @MockBean NewsProxy newsProxy;
 
     @Test
     void getAllNews() throws Exception {
-
         var news = new NewsResponse();
         when(newsProxy.getNews()).thenReturn(news);
         mockMvc.perform(get("/api/news/all"))
                 .andDo(print())
                 .andExpect(status().isOk());
-    }*/
+    }
+    */
 }
