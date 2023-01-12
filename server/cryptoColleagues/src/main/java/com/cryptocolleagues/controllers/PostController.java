@@ -25,9 +25,8 @@ public class PostController {
     @RequestMapping(path="/post/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "get selected Post")
-    public ResponseEntity<?> getPost(@PathVariable("id") int id) {
-        var post = postService.getById((long) id);
-
+    public ResponseEntity<?> getPost(@PathVariable("id") Long id) {
+        var post = postService.getById(id);
         if(post == null) {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("Post not found");
@@ -41,7 +40,7 @@ public class PostController {
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create Post", security = @SecurityRequirement(name = "bearerAuth"))
-    public Post createPost(@RequestBody PostRequest postRequest) throws Exception {
+    public Post createPost(@RequestBody @Valid PostRequest postRequest) throws Exception {
         return postService.create(postRequest);
       /*  try {
             var createdPost = postService.create(postRequest);

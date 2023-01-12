@@ -1,11 +1,14 @@
 package com.cryptocolleagues.services;
 
+import com.cryptocolleagues.controllers.AuthController;
+import com.cryptocolleagues.dtos.SignupRequest;
 import com.cryptocolleagues.enums.RoleEnum;
 import com.cryptocolleagues.models.Role;
 import com.cryptocolleagues.models.User;
 import com.cryptocolleagues.repositories.RoleRepository;
 import com.cryptocolleagues.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -16,6 +19,7 @@ import java.util.Set;
 @Configuration
 @RequiredArgsConstructor
 @Profile("demo")
+
 public class DataGeneratorService {
     final Environment env;
 
@@ -24,6 +28,8 @@ public class DataGeneratorService {
     final RoleRepository roleRepository;
 
     final UserRepository userRepository;
+
+    final AuthController authController;
 
     @Bean
     public void loadFakeData(){
@@ -42,10 +48,15 @@ public class DataGeneratorService {
         System.out.println(roleAdmin);
     }
 
+
     public void loadDataUsers(){
-        var role = roleRepository.findByName(RoleEnum.ROLE_ADMIN);
-        var user1 = new User("alissia", "alissia@fake.com", "123456");
-        user1.setRoles(Set.of(role.get()));
-        userRepository.save(user1);
+
+        var user1 = new SignupRequest("demi", "demi@test.com", Set.of("admin"), "123456");
+        authController.registerUser(user1);
+        var user2 = new SignupRequest("alissia", "alissia@test.com", Set.of("admin"), "123456");
+        authController.registerUser(user2);
+        var user3 = new SignupRequest("martina", "martina@test.com", Set.of("user"), "123456");
+        authController.registerUser(user3);
+
     }
 }
