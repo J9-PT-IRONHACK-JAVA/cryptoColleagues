@@ -1,3 +1,5 @@
+
+
 label {
 	display: block;
 	margin-top: 10px;
@@ -30,4 +32,35 @@ label {
 	-moz-border-radius: 50%;
 	-webkit-border-radius: 50%;
 	border-radius: 50%;
+}
+
+.navbar {
+	background: #2d2e43 !important;
+}
+
+.navbar-brand {
+	color: #DE4ECD !important;
+	font-weight: bold;
+}
+
+.nav-link {
+	color: #fff !important;
+}
+
+.card {
+	background: #27293D !important;
+}
+
+.notice-description {
+	font-weight: 100;
+	font-size: 14px;
+}
+
+.notice-footer {
+	font-weight: 100;
+	font-size: 12px;
+}
+
+.notice-link {
+	color: #DE4ECD !important;
 }

@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import UserService from '../services/user.service';
 
 const Home = () => {
-	const [content, setContent] = useState('');
+	const [cryptoNews, setCryptoNews] = useState(null);
 
 	useEffect(() => {
-		UserService.getPublicContent().then(
+		UserService.getNews().then(
 			(response) => {
-				setContent(response.data);
+				setCryptoNews(response.data.data);
+				console.log(response.data)
 			},
 			(error) => {
 				const _content =
@@ -16,16 +17,27 @@ const Home = () => {
 					error.message ||
 					error.toString();
 
-				setContent(_content);
+					setCryptoNews(_content);
 			},
 		);
 	}, []);
 
 	return (
 		<div className="container">
-			<header className="jumbotron">
-				<h3>{content}</h3>
-			</header>
+			<div class="row">
+			{cryptoNews &&
+				cryptoNews.map((cryptoNew, index) => (
+					<div key={index} className="card">
+						<p>{cryptoNew.title}</p>
+						<p className='notice-description'>{cryptoNew.description}</p>
+						<p className='notice-footer'>
+							<span>{cryptoNew.source}</span>
+							<span> | </span>
+							<span><a className='notice-link' href='cryptoNew.url' target="_blank">{cryptoNew.source}</a></span>
+						</p>
+					</div>
+				))}
+			</div>
 		</div>
 	);
 };

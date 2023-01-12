@@ -22,10 +22,15 @@ const getAdminBoard = () => {
 	return axios.get(API_URL + 'admin');
 };
 
+const getNews = () => {
+	return axios.get('http://localhost:8080/api/news/all');
+}
+
 const UserService = {
 	getPublicContent,
 	getUserBoard,
 	getAdminBoard,
+	getNews
 };
 
 export default UserService;

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import './App.css';
+import UserService from './services/user.service';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -31,12 +32,13 @@ const App = () => {
 		}
 	}, [currentUser]);
 
+
 	return (
 		<Router>
-			<div>
-				<nav className="navbar navbar-expand navbar-dark bg-dark">
+			<div className='home'>
+				<nav className="navbar navbar-expand ps-4 pe-4">
 					<Link to={'/'} className="navbar-brand">
-						bezKoder
+						CryptoColleagues
 					</Link>
 					<div className="navbar-nav mr-auto">
 						<li className="nav-item">
