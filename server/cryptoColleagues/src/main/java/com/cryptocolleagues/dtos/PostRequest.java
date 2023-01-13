@@ -12,6 +12,6 @@ public class PostRequest {
     @Size(min = 2, max = 500, message = "Length has to be between 2 and 500 characters")
     private String description;
 
-    @Size(min = 2, max = 2500, message = "Length has to be between 2 and 2500 characters")
+    @Size(min = 2, max = 5000, message = "Length has to be between 2 and 5000 characters")
     private String content;
 }

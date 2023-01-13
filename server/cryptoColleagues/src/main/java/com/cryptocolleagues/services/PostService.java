@@ -48,12 +48,6 @@ public class PostService {
         return saveOrUpdate(postToSave);
     }
 
-   /* public PostResponse getById(Long id) {
-        var post = postRepository.getById(id);
-        modelMapper.addMappings(postMapping);
-        var postResponse = modelMapper.map(post, PostResponse.class);
-        return postResponse;
-    }*/
 
     public PostResponse getById(Long id) {
         var post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
@@ -63,7 +57,6 @@ public class PostService {
             modelMapper.addMappings(postMapping);
         }
 
-      //  modelMapper.addMappings(postMapping);
         return modelMapper.map(post, PostResponse.class);
     }
 
