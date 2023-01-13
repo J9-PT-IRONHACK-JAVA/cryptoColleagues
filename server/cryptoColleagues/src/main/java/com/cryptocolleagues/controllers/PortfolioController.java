@@ -1,6 +1,6 @@
 package com.cryptocolleagues.controllers;
 
-import com.cryptocolleagues.repositories.PortfolioRepository;
+import com.cryptocolleagues.services.PortfolioService;
 import com.cryptocolleagues.utils.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Portfolio")
 public class PortfolioController {
 
-    private final PortfolioRepository portfolioRepository;
+    private final PortfolioService portfolioService;
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "get all logged user portfolios")
     public ResponseEntity<?>  getPortfoliosForUser(){
         try {
-            var allPortfolios = portfolioRepository.findAll();
+            var allPortfolios = portfolioService.getAllPortfolios();
             return new ResponseEntity<>(allPortfolios, HttpStatus.OK);
         } catch (Exception e) {
             ErrorResponse errorResponse = new ErrorResponse();
