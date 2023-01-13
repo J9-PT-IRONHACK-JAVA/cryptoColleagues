@@ -1,5 +1,6 @@
 package com.cryptocolleagues.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,15 +21,16 @@ public class CryptoCurrency {
     private int coinRank;
     private double coinPrice;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
 
-    public CryptoCurrency(String name, String symbol, int coinRank, double coinPrice,Portfolio portfolio) {
+    public CryptoCurrency(String name, String symbol, int coinRank, double coinPrice) {
         this.name = name;
         this.symbol = symbol;
         this.coinRank = coinRank;
         this.coinPrice = coinPrice;
-        this.portfolio = portfolio;
     }
+
 }

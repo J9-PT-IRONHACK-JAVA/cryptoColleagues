@@ -1,5 +1,6 @@
 package com.cryptocolleagues.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,16 @@ public class Portfolio {
     @JoinColumn(name = "author_id")
     private User author;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "portfolio")
     private List<CryptoCurrency> cryptoCurrencies;
+
+    public Portfolio(String name, String description, User author, List<CryptoCurrency> cryptoCurrencies) {
+        this.name = name;
+        this.description = description;
+        this.author = author;
+        this.cryptoCurrencies = cryptoCurrencies;
+    }
 
     public Portfolio(String name, String description, User author) {
         this.name = name;

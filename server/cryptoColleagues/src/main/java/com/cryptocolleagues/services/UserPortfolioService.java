@@ -1,6 +1,7 @@
 package com.cryptocolleagues.services;
 
 import com.cryptocolleagues.dtos.CryptoCurrencyDto;
+import com.cryptocolleagues.models.CryptoCurrency;
 import com.cryptocolleagues.models.Portfolio;
 import com.cryptocolleagues.repositories.UserPortfolioRepository;
 import com.cryptocolleagues.repositories.UserRepository;
@@ -19,6 +20,8 @@ public class UserPortfolioService {
     private final UserPortfolioRepository userPortfolioRepository;
 
     private final UserRepository userRepository;
+
+    private final CryptoCurrencyService cryptoCurrencyService;
 
     public List<Portfolio> getPortfoliosForUser(Long userId) {
         return userPortfolioRepository.findByAuthorId(userId);
@@ -41,6 +44,7 @@ public class UserPortfolioService {
     }
 
     public void deletePortfolio(Long portfolioId) {
+        userPortfolioRepository.deleteCryptoCurrenciesByPortfolioId(portfolioId);
         userPortfolioRepository.deleteById(portfolioId);
     }
 
@@ -48,12 +52,15 @@ public class UserPortfolioService {
         var userPortfolio = getSinglePortfolioForUser(portfolioId);
 
         if(userPortfolio.isPresent()){
-            var cryptoToSave = new CryptoCurrencyDto();
+            var cryptoToSave = new CryptoCurrency();
 
             cryptoToSave.setName(cryptocurrency.getName());
-            cryptoToSave.setRank(cryptocurrency.getRank());
             cryptoToSave.setSymbol(cryptocurrency.getSymbol());
-            cryptoToSave.setPriceUsd(cryptocurrency.getPriceUsd());
+            cryptoToSave.setCoinRank(cryptocurrency.getRank());
+            cryptoToSave.setCoinPrice(cryptocurrency.getPriceUsd());
+            cryptoToSave.setPortfolio(userPortfolio.get());
+
+            cryptoCurrencyService.saveCrypto(cryptoToSave);
 
             userPortfolio.get().getCryptoCurrencies().add(cryptoToSave);
             userPortfolioRepository.save(userPortfolio.get());
