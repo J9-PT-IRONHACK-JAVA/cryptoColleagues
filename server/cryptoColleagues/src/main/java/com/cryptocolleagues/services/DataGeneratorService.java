@@ -1,30 +1,19 @@
 package com.cryptocolleagues.services;
 
 import com.cryptocolleagues.controllers.AuthController;
-import com.cryptocolleagues.dtos.PostRequest;
-import com.cryptocolleagues.dtos.PostResponse;
-import com.cryptocolleagues.dtos.SignupRequest;
 import com.cryptocolleagues.enums.RoleEnum;
 import com.cryptocolleagues.models.Post;
-import com.cryptocolleagues.models.Role;
 import com.cryptocolleagues.models.User;
 import com.cryptocolleagues.repositories.PostRepository;
 import com.cryptocolleagues.repositories.RoleRepository;
 import com.cryptocolleagues.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.modelmapper.TypeMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Configuration
@@ -45,16 +34,6 @@ public class DataGeneratorService {
     final PasswordEncoder encoder;
 
     final PostRepository postRepository;
-
-
-
-
-  /*  PropertyMap<Post, PostRequest> postMapping = new PropertyMap<>(Post.class, PostResponse.class) {
-        protected void configure() {
-            map().setUserName(source.getAuthor().getUsername());
-            map().setEmail(source.getAuthor().getEmail());
-        }
-    };*/
 
     @Bean
     public void loadFakeData(){

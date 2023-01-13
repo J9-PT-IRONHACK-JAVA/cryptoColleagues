@@ -9,9 +9,11 @@ public class PostRequest {
     @NotBlank(message = "Title must not be blank")
     private String title;
 
-    @Size(min = 2, max = 500, message = "Length has to be between 2 and 500 characters")
+    @NotBlank(message = "Description must not be blank")
+    @Size(max = 500, message = "The description can contain a maximum of 500 characters")
     private String description;
 
-    @Size(min = 2, max = 5000, message = "Length has to be between 2 and 5000 characters")
+    @NotBlank
+    @Size(max = 2500, message = "The content can contain a maximum of 2500 characters")
     private String content;
 }
