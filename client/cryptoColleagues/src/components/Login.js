@@ -53,6 +53,7 @@ const Login = () => {
 	return (
 		<div className="col-md-12 login-form">
 			<div className="card card-container">
+			<div class="title"><h4>Login</h4></div>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={validationSchema}
