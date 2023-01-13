@@ -27,11 +27,11 @@ public class PostController {
     @Operation(summary = "get selected Post")
     public ResponseEntity<?> getPost(@PathVariable("id") Long id) {
         var post = postService.getById(id);
-        if(post == null) {
+       /* if(post == null) {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("Post not found");
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
+        }*/
 
         return new ResponseEntity<>(post, HttpStatus.OK);
     }

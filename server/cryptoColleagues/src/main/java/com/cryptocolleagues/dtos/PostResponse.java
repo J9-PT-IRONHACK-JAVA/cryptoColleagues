@@ -1,8 +1,6 @@
 package com.cryptocolleagues.dtos;
 
 import lombok.Data;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 @Data
 public class PostResponse {
     private String title;

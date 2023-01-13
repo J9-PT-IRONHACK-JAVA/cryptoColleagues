@@ -2,16 +2,20 @@ package com.cryptocolleagues.services;
 
 import com.cryptocolleagues.dtos.PostRequest;
 import com.cryptocolleagues.dtos.PostResponse;
+import com.cryptocolleagues.exceptions.PostNotFoundException;
 import com.cryptocolleagues.models.Post;
 import com.cryptocolleagues.repositories.PostRepository;
 import com.cryptocolleagues.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.modelmapper.TypeMap;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
+
+import javax.xml.transform.Source;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +24,9 @@ public class PostService {
     private final UserRepository userRepository;
 
     private final ModelMapper modelMapper = new ModelMapper();
+
+
+
 
     PropertyMap<Post, PostResponse> postMapping = new PropertyMap<>() {
         protected void configure() {
@@ -49,8 +56,14 @@ public class PostService {
     }*/
 
     public PostResponse getById(Long id) {
-        var post = postRepository.findById(id).orElseThrow(()-> new NotFoundException("Post not found"));
-        modelMapper.addMappings(postMapping);
+        var post = postRepository.findById(id).orElseThrow(PostNotFoundException::new);
+
+        TypeMap<Post, PostResponse> typeMap = modelMapper.getTypeMap(Post.class, PostResponse.class);
+        if (typeMap == null) { // if not  already added
+            modelMapper.addMappings(postMapping);
+        }
+
+      //  modelMapper.addMappings(postMapping);
         return modelMapper.map(post, PostResponse.class);
     }
 
