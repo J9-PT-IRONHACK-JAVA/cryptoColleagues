@@ -1,6 +1,5 @@
 package com.cryptocolleagues.controllers;
 
-import com.cryptocolleagues.repositories.PortfolioRepository;
 import com.cryptocolleagues.services.PortfolioService;
 import com.cryptocolleagues.utils.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;

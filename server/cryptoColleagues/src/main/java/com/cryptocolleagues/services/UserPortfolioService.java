@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,10 @@ public class UserPortfolioService {
 
     public List<Portfolio> getPortfoliosForUser(Long userId) {
         return userPortfolioRepository.findByAuthorId(userId);
+    }
+
+    public Optional<Portfolio> getSinglePortfolioForUser(Long portfolioId){
+        return userPortfolioRepository.findById(portfolioId);
     }
 
     public Portfolio saveOrUpdate(Portfolio portfolio) {

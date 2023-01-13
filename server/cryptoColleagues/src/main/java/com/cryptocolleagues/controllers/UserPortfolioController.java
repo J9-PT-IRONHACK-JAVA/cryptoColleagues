@@ -29,13 +29,27 @@ public class UserPortfolioController {
     @GetMapping("/{userId}")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "get user portfolios")
-    public ResponseEntity<?> getPortfoliosForUser(@PathVariable Long userId) {
+    public ResponseEntity<?> getPortfolioForUser(@PathVariable Long userId) {
         try {
             var portfoliosForUser = userPortfolioService.getPortfoliosForUser(userId);
             return new ResponseEntity<>(portfoliosForUser, HttpStatus.OK);
         } catch(Exception e) {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("Portfolios for user cannot be obtained");
+            return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/one/{portfolioId}")
+    @PreAuthorize("hasRole('USER')")
+    @Operation(summary = "get user portfolio")
+    public ResponseEntity<?> getPortfoliosForUser(@PathVariable Long portfolioId) {
+        try {
+            var userPortfolio = userPortfolioService.getSinglePortfolioForUser(portfolioId);
+            return new ResponseEntity<>(userPortfolio, HttpStatus.OK);
+        } catch(Exception e) {
+            ErrorResponse errorResponse = new ErrorResponse();
+            errorResponse.setMessage("Portfolio for user cannot be obtained");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
         }
     }
