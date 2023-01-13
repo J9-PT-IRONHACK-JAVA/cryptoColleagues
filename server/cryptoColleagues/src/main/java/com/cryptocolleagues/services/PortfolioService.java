@@ -12,7 +12,7 @@ import java.util.List;
 public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
 
-    public List<Portfolio> getAllPortfolios(){
+    public List<Portfolio> getAllPortfolios() {
         return portfolioRepository.findAll();
     }
 }

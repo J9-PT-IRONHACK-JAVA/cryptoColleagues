@@ -23,11 +23,12 @@ public class UserPortfolioService {
 
     private final CryptoCurrencyService cryptoCurrencyService;
 
+
     public List<Portfolio> getPortfoliosForUser(Long userId) {
         return userPortfolioRepository.findByAuthorId(userId);
     }
 
-    public Optional<Portfolio> getSinglePortfolioForUser(Long portfolioId){
+    public Optional<Portfolio> getSinglePortfolioForUser(Long portfolioId) {
         return userPortfolioRepository.findById(portfolioId);
     }
 
@@ -44,14 +45,15 @@ public class UserPortfolioService {
     }
 
     public void deletePortfolio(Long portfolioId) {
-        userPortfolioRepository.deleteCryptoCurrenciesByPortfolioId(portfolioId);
+        userPortfolioRepository.findById(portfolioId)
+                .ifPresent(portfolio -> portfolio.setCryptoCurrencies(null));
         userPortfolioRepository.deleteById(portfolioId);
     }
 
     public void addCryptoCurrencyToPortfolio(CryptoCurrencyDto cryptocurrency, Long portfolioId) {
         var userPortfolio = getSinglePortfolioForUser(portfolioId);
 
-        if(userPortfolio.isPresent()){
+        if (userPortfolio.isPresent()) {
             var cryptoToSave = new CryptoCurrency();
 
             cryptoToSave.setName(cryptocurrency.getName());
