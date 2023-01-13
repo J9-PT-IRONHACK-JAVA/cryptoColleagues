@@ -62,11 +62,6 @@ const Register = () => {
 	return (
 		<div className="col-md-12 signup-form">
 			<div className="card card-container">
-				<img
-					src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-					alt="profile-img"
-					className="profile-img-card"
-				/>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={validationSchema}
@@ -101,7 +96,7 @@ const Register = () => {
 											name="email"
 											type="email"
 											className={
-												'form-control' +
+												'form-control mt-2' +
 												(errors.email && touched.email ? ' is-invalid' : '')
 											}
 										/>
@@ -118,7 +113,7 @@ const Register = () => {
 											name="password"
 											type="password"
 											className={
-												'form-control' +
+												'form-control mt-2' +
 												(errors.password && touched.password
 													? ' is-invalid'
 													: '')
@@ -131,8 +126,8 @@ const Register = () => {
 										/>
 									</div>
 
-									<div className="form-group">
-										<button type="submit" className="btn btn-primary btn-block">
+									<div className="form-group mt-4">
+										<button type="submit" className="btn btn-primary w-100">
 											Sign Up
 										</button>
 									</div>

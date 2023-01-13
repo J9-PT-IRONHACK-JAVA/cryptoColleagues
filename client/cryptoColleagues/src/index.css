@@ -1,6 +1,7 @@
 body, head {
-  background-image: url("./assets/images/background.svg");
-	background-size: cover;
+  background-image: url("./assets/images/background2.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
   min-height: 100vh;
 }
 
@@ -10,9 +11,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color:#fff;
+  padding-bottom: 2rem;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+

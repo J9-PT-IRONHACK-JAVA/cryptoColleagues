@@ -5,6 +5,14 @@ label {
 	margin-top: 10px;
 }
 
+img {
+	max-width: 100%;
+}
+
+input {
+	border-radius: 0 !important;
+}
+
 .login-form,
 .signup-form {
 	max-width: 350px;
@@ -18,7 +26,7 @@ label {
 	margin-top: 50px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
-	border-radius: 2px;
+	border-radius: 0px !important;
 	-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
@@ -63,4 +71,56 @@ label {
 
 .notice-link {
 	color: #DE4ECD !important;
+}
+
+.custom-card {
+	background: #2d2e43;
+	padding: 1rem 0;
+}
+
+.container-card {
+	display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: masonry;
+	grid-gap:1rem;
+}
+
+.custom-card img {
+	-webkit-box-shadow: -4px 1px 62px -32px rgba(222,78,205,0.65);
+	-moz-box-shadow: -4px 1px 62px -32px rgba(222,78,205,0.65);
+	box-shadow: -4px 1px 62px -32px rgba(222,78,205,0.65);
+}
+
+.btn.btn-primary {
+	background: #DE4ECD !important;
+	border:0 !important;
+	outline: 0 !important;;
+}
+
+.btn.btn-primary:hover {
+	background: #b940ab !important;
+	border:0 !important;
+	outline: 0 !important;;
+}
+
+.form-group label {
+	font-size: 12px;
+	font-weight: 100;
+}
+
+.invalid-feedback {
+	color:#c23ae0 !important;
+	border-color: transparent !important;
+	font-size: 12px !important;
+	background-image: none !important;
+}
+
+.form-control.is-invalid {
+	border-color: transparent !important;
+	font-size: 12px !important;
+	background-image: none !important;
+}
+
+.form-control.is-invalid:focus {
+	box-shadow: none;
 }

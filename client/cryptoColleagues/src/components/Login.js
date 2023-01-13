@@ -53,11 +53,6 @@ const Login = () => {
 	return (
 		<div className="col-md-12 login-form">
 			<div className="card card-container">
-				<img
-					src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-					alt="profile-img"
-					className="profile-img-card"
-				/>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={validationSchema}
@@ -82,7 +77,7 @@ const Login = () => {
 								/>
 							</div>
 
-							<div className="form-group">
+							<div className="form-group mt-2">
 								<label htmlFor="password">Password</label>
 								<Field
 									name="password"
@@ -99,10 +94,10 @@ const Login = () => {
 								/>
 							</div>
 
-							<div className="form-group">
+							<div className="form-group mt-4 action-button">
 								<button
 									type="submit"
-									className="btn btn-primary btn-block"
+									className="btn btn-primary w-100"
 									disabled={loading}
 								>
 									{loading && (
