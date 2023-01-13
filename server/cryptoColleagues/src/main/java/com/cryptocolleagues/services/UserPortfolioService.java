@@ -1,5 +1,6 @@
 package com.cryptocolleagues.services;
 
+import com.cryptocolleagues.dtos.CryptoCurrencyDto;
 import com.cryptocolleagues.models.Portfolio;
 import com.cryptocolleagues.repositories.UserPortfolioRepository;
 import com.cryptocolleagues.repositories.UserRepository;
@@ -41,5 +42,21 @@ public class UserPortfolioService {
 
     public void deletePortfolio(Long portfolioId) {
         userPortfolioRepository.deleteById(portfolioId);
+    }
+
+    public void addCryptoCurrencyToPortfolio(CryptoCurrencyDto cryptocurrency, Long portfolioId) {
+        var userPortfolio = getSinglePortfolioForUser(portfolioId);
+
+        if(userPortfolio.isPresent()){
+            var cryptoToSave = new CryptoCurrencyDto();
+
+            cryptoToSave.setName(cryptocurrency.getName());
+            cryptoToSave.setRank(cryptocurrency.getRank());
+            cryptoToSave.setSymbol(cryptocurrency.getSymbol());
+            cryptoToSave.setPriceUsd(cryptocurrency.getPriceUsd());
+
+            userPortfolio.get().getCryptoCurrencies().add(cryptoToSave);
+            userPortfolioRepository.save(userPortfolio.get());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.cryptocolleagues.controllers;
 
+import com.cryptocolleagues.dtos.CryptoCurrencyDto;
 import com.cryptocolleagues.exceptions.ForbiddenException;
 import com.cryptocolleagues.models.Portfolio;
 import com.cryptocolleagues.repositories.UserPortfolioRepository;
@@ -87,6 +88,28 @@ public class UserPortfolioController {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("Portfolios for user cannot be deleted");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/add/{portfolioId}")
+    @PreAuthorize("hasRole('USER')")
+    @Operation(summary = "add crypto to portfolio")
+    public ResponseEntity<?> addCryptoCurrencyToPortfolio(@RequestBody CryptoCurrencyDto cryptoCurrencyDto, @PathVariable Long portfolioId) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            var currentUser = authentication.getName();
+            var author = userRepository.findByUsername(currentUser);
+            var portfolio = userPortfolioRepository.findById(portfolioId);
+            if (portfolio.isPresent() && portfolio.get().getAuthor().equals(author.get())) {
+                userPortfolioService.addCryptoCurrencyToPortfolio(cryptoCurrencyDto, portfolioId);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                throw new ForbiddenException();
+            }
+        } catch (Exception exception) {
+            ErrorResponse errorResponse = new ErrorResponse();
+            errorResponse.setMessage("Crypto cannot be added to portfolio");
+            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
