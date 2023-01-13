@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "portfolios")
+@Table(name = "user_portfolios")
 public class Portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,12 @@ public class Portfolio {
         this.name = name;
         this.description = description;
         this.author = author;
+    }
+
+    public Portfolio(String name, String description, User author, List<CryptoCurrency> cryptoCurrencies) {
+        this.name = name;
+        this.description = description;
+        this.author = author;
+        this.cryptoCurrencies = cryptoCurrencies;
     }
 }

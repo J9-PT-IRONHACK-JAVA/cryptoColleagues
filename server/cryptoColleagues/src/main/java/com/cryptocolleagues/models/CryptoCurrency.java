@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "cryptocurrencies")
+@Table(name = "user_cryptocurrencies")
 public class CryptoCurrency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +31,12 @@ public class CryptoCurrency {
         this.coinRank = coinRank;
         this.coinPrice = coinPrice;
         this.portfolio = portfolio;
+    }
+
+    public CryptoCurrency(String name, String symbol, int coinRank, double coinPrice) {
+        this.name = name;
+        this.symbol = symbol;
+        this.coinRank = coinRank;
+        this.coinPrice = coinPrice;
     }
 }

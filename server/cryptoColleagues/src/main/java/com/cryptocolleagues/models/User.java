@@ -2,6 +2,7 @@ package com.cryptocolleagues.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+
 import java.util.*;
 
 @Entity
@@ -36,6 +37,9 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "author")
+    private List<Portfolio> portfolio;
 
     public User() {
     }
@@ -84,5 +88,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Portfolio> getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(List<Portfolio> portfolio) {
+        this.portfolio = portfolio;
     }
 }
