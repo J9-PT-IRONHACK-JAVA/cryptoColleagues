@@ -22,6 +22,14 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     private final PostService postService;
 
+    @RequestMapping(path="/all", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "get all Post")
+    public ResponseEntity<?> getAllPost() {
+        var posts = postService.getAll();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
     @RequestMapping(path="/post/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "get selected Post")

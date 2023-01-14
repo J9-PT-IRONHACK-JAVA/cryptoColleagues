@@ -28,9 +28,10 @@ public class UserPortfolioController {
     private final UserRepository userRepository;
 
     @GetMapping("/{userId}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+
     @Operation(summary = "get user portfolios")
-    public ResponseEntity<?> getPortfolioForUser(@PathVariable Long userId) {
+    public ResponseEntity<?> getPortfolioForUser(@PathVariable("userId") Long userId) {
         try {
             var portfoliosForUser = userPortfolioService.getPortfoliosForUser(userId);
             return new ResponseEntity<>(portfoliosForUser, HttpStatus.OK);

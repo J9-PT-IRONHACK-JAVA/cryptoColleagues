@@ -9,8 +9,10 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
 import Profile from './components/Profile';
+import BoardCryptos from './components/BoardCryptos';
 import BoardUser from './components/BoardUser';
 import BoardAdmin from './components/BoardAdmin';
+import Blog from './components/Blog';
 
 import { logout } from './slices/auth';
 
@@ -47,7 +49,20 @@ const App = () => {
 							</Link>
 						</li>
 
-						{showAdminBoard && (
+						<li className="nav-item">
+							<Link to={'/blog'} className="nav-link">
+								Blog
+							</Link>
+						</li>
+
+						{(currentUser || showAdminBoard) && (<li className="nav-item">
+							<Link to={'/cryptos'} className="nav-link">
+								Board Cryptos
+							</Link>
+						</li>)}
+
+			
+					{showAdminBoard && (
 							<li className="nav-item">
 								<Link to={'/admin'} className="nav-link">
 									Admin Board
@@ -98,9 +113,11 @@ const App = () => {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/home" element={<Home />} />
+						<Route path="/blog" element={<Blog />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
 						<Route path="/profile" element={<Profile />} />
+						<Route path="/cryptos" element={<BoardCryptos />} />
 						<Route path="/user" element={<BoardUser />} />
 						<Route path="/admin" element={<BoardAdmin />} />
 					</Routes>

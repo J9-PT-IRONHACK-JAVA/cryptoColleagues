@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import javax.xml.transform.Source;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +25,6 @@ public class PostService {
     private final UserRepository userRepository;
 
     private final ModelMapper modelMapper = new ModelMapper();
-
-
 
 
     PropertyMap<Post, PostResponse> postMapping = new PropertyMap<>() {
@@ -46,6 +45,10 @@ public class PostService {
         var author = userRepository.findByUsername(currentUser);
         var postToSave = new Post(postRequest.getTitle(), postRequest.getDescription(), postRequest.getContent(), author.get());
         return saveOrUpdate(postToSave);
+    }
+
+    public List<Post> getAll() {
+        return postRepository.findAll();
     }
 
 

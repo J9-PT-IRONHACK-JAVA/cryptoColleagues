@@ -134,3 +134,57 @@ input {
 .login-form {
 	box-shadow: -4px 1px 62px -32px rgb(222 78 205 / 65%);
 }
+
+.table > :not(caption) > * > * {
+	background-color: #2d2e43 !important;
+	border-bottom-width:0 !important;
+	font-size: 14px !important;
+	color: #fff;
+	
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+	--bs-table-accent-bg: #272a3d !important;
+	background-color: #272a3d !important;
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	color: #fff !important;
+}
+
+th {
+	font-weight: bold !important;
+	color: #DE4ECD !important;
+}
+
+.nav-link:hover {
+	color: #DE4ECD !important;
+	text-decoration: underline;
+}
+
+.avatar-img {
+	box-shadow: none !important;
+	max-width: 200px;
+	margin-right: 2rem;
+}
+
+.avatar-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.pink {
+	color: #DE4ECD !important;
+}
+
+li {
+	list-style: none;
+}
+
+.cryptos-title {
+	font-size: 1.25rem !important;
+}
+
+.crypto-divider {
+	border-bottom: 1px solid #DE4ECD;
+}
