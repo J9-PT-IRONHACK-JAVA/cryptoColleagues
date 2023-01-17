@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/posts")
@@ -72,6 +74,21 @@ public class PostController {
         } catch(Exception e) {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("Post cannot be updated");
+            return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+        }
+    }
+
+    @PatchMapping("/post/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Update author Post", security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?>  updateAuthorPost(@PathVariable("id") Long id, @RequestParam Optional<Long> author) {
+        try {
+            var updatedAuthorPost =  postService.updateAuthorPost(id, author);
+            return new ResponseEntity<>(updatedAuthorPost, HttpStatus.OK);
+        } catch(Exception e) {
+            ErrorResponse errorResponse = new ErrorResponse();
+            errorResponse.setMessage("Author Post cannot be updated");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
         }
     }

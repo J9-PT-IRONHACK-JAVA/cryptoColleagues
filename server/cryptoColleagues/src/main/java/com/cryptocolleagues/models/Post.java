@@ -2,6 +2,8 @@ package com.cryptocolleagues.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "posts")
@@ -18,7 +20,7 @@ public class Post {
     @Column(length = 2500)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private User author;
 

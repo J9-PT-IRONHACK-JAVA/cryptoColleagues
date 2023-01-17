@@ -2,6 +2,9 @@ package com.cryptocolleagues.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.*;
 
 @Entity
@@ -32,9 +35,11 @@ public class User {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "author")
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
 
     public User() {

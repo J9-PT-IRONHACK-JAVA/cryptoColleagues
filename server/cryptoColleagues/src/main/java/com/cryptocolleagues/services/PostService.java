@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.webjars.NotFoundException;
 
 import javax.xml.transform.Source;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -69,18 +71,25 @@ public class PostService {
 
 
     public Post updatePost(Long id, PostRequest postRequest) {
-            var postResponse = postRepository.findById(id);
-            if (postResponse.isPresent()){
-                postResponse.get().setTitle(postRequest.getTitle());
-                postResponse.get().setContent(postRequest.getContent());
-                postResponse.get().setDescription(postRequest.getDescription());
-                return saveOrUpdate(postResponse.get());
-            }
-            Post post = new Post();
-            post.setTitle(postRequest.getTitle());
-            post.setContent(postRequest.getContent());
-            post.setDescription(postRequest.getDescription());
-            return saveOrUpdate(post);
+        var postResponse = postRepository.findById(id);
+        if (postResponse.isPresent()){
+            postResponse.get().setTitle(postRequest.getTitle());
+            postResponse.get().setContent(postRequest.getContent());
+            postResponse.get().setDescription(postRequest.getDescription());
+            return saveOrUpdate(postResponse.get());
         }
+        Post post = new Post();
+        post.setTitle(postRequest.getTitle());
+        post.setContent(postRequest.getContent());
+        post.setDescription(postRequest.getDescription());
+        return saveOrUpdate(post);
+    }
+
+    public Post updateAuthorPost(Long id, Optional<Long> author) {
+        var postResponse = postRepository.findById(id);
+        var authorResponse =userRepository.findById(author.get());
+        postResponse.get().setAuthor(authorResponse.get());
+        return saveOrUpdate(postResponse.get());
+    }
 }
 

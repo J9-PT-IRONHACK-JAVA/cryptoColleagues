@@ -25,6 +25,7 @@ public class Portfolio {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User author;
 
     @JsonManagedReference
