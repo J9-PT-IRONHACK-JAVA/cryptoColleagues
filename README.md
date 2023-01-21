@@ -5,7 +5,7 @@ CryptoColleagues is an application to manage and read information about cryptos.
 
 ### How to run
 Frontend:
-- Open frontend proyect
+- Open frontend project
 - Yarn
 - Yarn start
 
